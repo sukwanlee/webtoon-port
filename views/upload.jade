@@ -3,9 +3,9 @@ extends layout
 block content
 	.container
 		h1= title
-		form(action="/upload" enctype="multipart/form-data" method="post")
-			input(type="text" name="title")
-			br
-			input(type="file" name="upload" multiple="multiple")
+		form(action="/upload/success" enctype="multipart/form-data" method="post")
+			//- input(type="text" name="title")
+			//- br
+			input(type="file" name="image")
 			br
 			input(type="submit" value="Upload")

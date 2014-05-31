@@ -18,10 +18,6 @@ router.get('/recent', function(req, res) {
 	res.render('recent', {title: 'Recent Uploads'});
 });
 
-router.get('/upload', function(req, res) {
-	res.render('upload', {title: 'Upload New Chapter'});
-});
-
 router.post('/upload', function(req, res) {
 	if (req.url == '/upload' && req.method.toLowerCase() == 'post') {
     var form = new formidable.IncomingForm();

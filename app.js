@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
+var upload = require('./routes/upload');
 var users = require('./routes/users');
 
 var app = express();
@@ -16,6 +17,7 @@ app.set('view engine', 'jade');
 
 app.use(favicon());
 app.use(logger('dev'));
+app.use(express.bodyParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
@@ -23,6 +25,7 @@ app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
+app.use('/upload', upload);
 app.use('/users', users);
 
 /// catch 404 and forward to error handler
