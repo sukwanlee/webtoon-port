@@ -1,9 +1,9 @@
 var express = require('express'),
 		formidable = require('formidable'),
-		util = require('util');
+		util = require('util'),
+    series = require('../lib/models');
 
 var router = express.Router();
-
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -18,17 +18,50 @@ router.get('/recent', function(req, res) {
 	res.render('recent', {title: 'Recent Uploads'});
 });
 
-router.post('/upload', function(req, res) {
-	if (req.url == '/upload' && req.method.toLowerCase() == 'post') {
-    var form = new formidable.IncomingForm();
-    form.parse(req, function(err, fields, files) {
-      res.writeHead(200, {'content-type': 'text/plain'});
-      res.write('received upload:\n\n');
-      res.end(util.inspect({fields: fields, files: files}));
-    });
- 
-    return;
-  }
-});
+router.get('/collection', function(req, res) {
+  series.find({"ongoing": true}, function(err, series) {
+    var monday = [],
+        tuesday = [],
+        wednesday = [],
+        thursday = [],
+        friday = [],
+        saturday = [],
+        sunday = [];
+    var i;
+    for(i = 0; i < series.length; i++) {
+      switch(series[i].day) {
+        case "Monday":
+          monday.push(series[i])
+          break;
+        case "Tuesday":
+          tuesday.push(series[i]);
+          break;
+        case "Wednesday":
+          wednesday.push(series[i]);
+          break;
+        case "Thursday":
+          thursday.push(series[i]);
+          break;
+        case "Friday":
+          friday.push(series[i]);
+          break;
+        case "Saturday":
+          saturday.push(series[i]);
+          break;
+        case "Sunday":
+          sunday.push(series[i]);
+          break;
+      }
+    }
+    res.render('collection', {title: 'Webtoon Collection',
+                              monday: monday,
+                              tuesday: tuesday,
+                              wednesday: wednesday,
+                              thursday: thursday,
+                              friday: friday,
+                              saturday: saturday,
+                              sunday: sunday });
+  });
+})
 
 module.exports = router;

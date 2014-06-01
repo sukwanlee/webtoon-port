@@ -3,9 +3,36 @@ extends layout
 block content
 	.container
 		h1= title
-		form(action="/upload/success" enctype="multipart/form-data" method="post")
+		form(action="/upload/chapterUploaded" enctype="multipart/form-data" method="post")
 			//- input(type="text" name="title")
 			//- br
+			label Series:
+				select(name="seriesList")
+					each series in webtoon_list
+						option #{series}
+			br
 			input(type="file" name="image")
 			br
 			input(type="submit" value="Upload")
+
+		h1 New Series
+		form(action="/upload/seriesCreated" enctype="application/x-www-form-urlencoded" method="post")
+			label Series Name:
+			input(type="text" name="seriesName")
+			br
+			label Author:
+			input(type="text" name="seriesAuthor")
+			br
+			label Day:
+				select(name="seriesDay")
+					option Monday
+					option Tuesday
+					option Wednesday
+					option Thursday
+					option Friday
+					option Saturday
+					option Sunday
+			br
+			input(type="file" name="seriesThumbnail")
+			br
+			input(type="submit" value="Create")

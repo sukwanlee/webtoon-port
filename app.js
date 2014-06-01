@@ -10,6 +10,18 @@ var upload = require('./routes/upload');
 var users = require('./routes/users');
 
 var app = express();
+var mongoose = require('mongoose');
+
+// mongodb setup
+var uristring = process.env.MONGOLAB_URI || 'mongodb://localhost/webtoon';
+
+mongoose.connect(uristring, function(err, res) {
+  if (err) {
+    console.log ('ERROR connecting to: ' + uristring + '. ' + err);
+  } else {
+    console.log('Succeeded connecting to: ' + uristring);
+  }
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -17,7 +29,6 @@ app.set('view engine', 'jade');
 
 app.use(favicon());
 app.use(logger('dev'));
-app.use(express.bodyParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
