@@ -1,0 +1,42 @@
+extends layout
+
+block content
+	.container
+		h1= title
+		table#collection-table
+			tr
+				td.collection-days 
+					h4 Monday
+					for series in monday
+						br
+						| #{series.name}
+				td.collection-days 
+					h4 Tuesday
+					for series in tuesday
+						br
+						| #{series.name}
+				td.collection-days 
+					h4 Wednesday
+					for series in wednesday
+						br
+						| #{series.name}
+				td.collection-days 
+					h4 Thursday
+					for series in thursday
+						br
+						| #{series.name}
+				td.collection-days 
+					h4 Friday
+					for series in friday
+						br
+						| #{series.name}
+				td.collection-days 
+					h4 Saturday
+					for series in saturday
+						br
+						| #{series.name}
+				td.collection-days 
+					h4 Sunday
+					for series in sunday
+						br
+						| #{series.name}
